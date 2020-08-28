@@ -18,5 +18,5 @@ class ApiHttpbinPost(BaseApi):
     method = "POST"
     params = {}
     headers = {"accept": "application/json"}
-    data = "abc=123"
+    # data 优先级高于json
     json = {"abc": 123}
