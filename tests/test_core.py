@@ -5,23 +5,7 @@
 # 开发工具：PyCharm
 import requests
 import pytest
-from hogwarts_apitest.api import BaseApi
-
-
-# 接口以类这种方式定义
-class ApiHttpbinGet(BaseApi):
-    url = "http://www.httpbin.org/get"
-    method = "GET"
-    headers = {"accept": "application/json"}
-
-
-class ApiHttpbinPost(BaseApi):
-    url = "http://www.httpbin.org/post"
-    method = "POST"
-    params = {}
-    headers = {"accept": "application/json"}
-    data = "abc=123"
-    json = {"abc": 123}
+from tests.api.httpbin import *
 
 
 # 用例，单个接口以这样的方式进行描述，链式调用
@@ -49,5 +33,5 @@ def test_httpbin_post():
         .set_json({"abc": 123}) \
         .run() \
         .validate("status_code", 200) \
-        .validate("json().url", "http://www.httpbin.org/post") \
-        .validate("json().headers.Accept", "application/json")
+        .validate("json.url", "http://www.httpbin.org/post") \
+        .validate("json.headers.Accept", "application/json")
