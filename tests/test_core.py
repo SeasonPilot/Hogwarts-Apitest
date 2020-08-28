@@ -28,8 +28,8 @@ class ApiHttpbinPost(BaseApi):
 def test_httpbin_get():
     ApiHttpbinGet().run() \
         .validate("status_code", 200) \
-        # .validate("headers.server", "nginx") \
-    # .validate("json.url", "http://www.httpbin.org/get")
+        .validate("headers.server", "gunicorn/19.9.0") \
+        # .validate("json.url", "http://www.httpbin.org/get")
 
 
 def test_httpbin_get_parmas():

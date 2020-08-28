@@ -15,8 +15,14 @@ class BaseApi(object):
     json = {}
 
     def validate(self, key, expected_value):
-        actual_value = getattr(self.response, key)
-        assert actual_value == expected_value
+        value = self.response
+        for _key in key.split("."):
+            print("value---------------", _key,value)
+            if isinstance(value, requests.Response):
+                value = getattr(value, _key)
+            elif isinstance(value, requests.structures.CaseInsensitiveDict):
+                value = value[_key]
+        assert value == expected_value
         return self
 
     def set_data(self, data):
