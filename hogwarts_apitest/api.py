@@ -50,3 +50,7 @@ class BaseApi(object):
             json=self.json
         )
         return self
+
+    def extract(self, field):
+        value = getattr(self.response, field)
+        return value

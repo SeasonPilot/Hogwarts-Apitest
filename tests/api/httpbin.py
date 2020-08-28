@@ -20,3 +20,10 @@ class ApiHttpbinPost(BaseApi):
     headers = {"accept": "application/json"}
     # data 优先级高于json
     json = {"abc": 123}
+
+
+class ApiHttpbinGetCookies(BaseApi):
+    url = "http://www.httpbin.org/cookies"
+    method = "GET"
+    params = {}
+    headers = {"accept": "application/json"}
