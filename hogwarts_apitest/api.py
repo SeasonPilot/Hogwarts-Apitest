@@ -7,6 +7,7 @@ import requests
 
 
 class BaseApi(object):
+    session = requests.sessions.Session()
     url = ""
     method = "GET"
     headers = {}
@@ -32,7 +33,7 @@ class BaseApi(object):
         return self
 
     def run(self):
-        self.response = requests.request(
+        self.response = self.session.request(
             self.method,
             self.url,
             params=self.params,
@@ -60,3 +61,6 @@ class BaseApi(object):
             elif isinstance(value, (requests.structures.CaseInsensitiveDict, dict)):
                 value = value[_key]
         return value
+
+    def get_response(self):
+        return self.response
