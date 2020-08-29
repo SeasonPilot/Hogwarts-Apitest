@@ -35,7 +35,7 @@ def test_httpbin_post():
         .validate("status_code", 200) \
         .validate("json.url", "http://www.httpbin.org/post") \
         .validate("json.headers.Accept", "application/json") \
-        .validate("json.json.adc", 123)
+        .validate("json.json.abc", 123)
 
 
 # 参数共享
@@ -61,5 +61,12 @@ def test_httpbin_parameters_share():
 #  参数依赖、关联
 # 实现提取状态码
 def test_httpbin_extract():
-    status_code = ApiHttpbinGet().run().extract("status_code")
+    api_run = ApiHttpbinGet().run()
+    status_code = api_run.extract("status_code")
     assert status_code == 200
+
+    sever = api_run.extract("headers.server")
+    assert sever == "gunicorn/19.9.0"
+
+    accept_type = api_run.extract("json().headers.Accept")
+    assert accept_type == "application/json"
