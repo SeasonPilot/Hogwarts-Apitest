@@ -101,14 +101,14 @@ def test_httpbin_parameters_extract():
         .validate("json.json.freeform", freeform)
 
 
-def test_httpbin_loggin_status():
+def test_httpbin_loggin_status(init_session):
     # step1: loggin and get cookie
-    ApiHttpbinSetCookies().set_params(freeform=567).run()
+    ApiHttpbinSetCookies().set_params(freeform=567).run(init_session)
 
     # step2: request another api, check cookie
     resp = ApiHttpbinPost() \
         .set_json({"abc": 123}) \
-        .run() \
+        .run(init_session) \
         .get_response()
     requests_headers = resp.request.headers
 

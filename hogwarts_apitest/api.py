@@ -7,7 +7,6 @@ import requests
 
 
 class BaseApi(object):
-    session = requests.sessions.Session()
     url = ""
     method = "GET"
     headers = {}
@@ -32,8 +31,9 @@ class BaseApi(object):
         self.cookies.update({key: value})
         return self
 
-    def run(self):
-        self.response = self.session.request(
+    def run(self, session=None):
+        session = session or requests.sessions.Session()
+        self.response = session.request(
             self.method,
             self.url,
             params=self.params,
